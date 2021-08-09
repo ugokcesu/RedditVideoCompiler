@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "C:\\VSCode\\.venv\\Scripts\\python.exe",
+    "jupyter.jupyterServerType": "local",
+    "git.ignoreLimitWarning": true
+}
