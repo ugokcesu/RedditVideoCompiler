@@ -3,11 +3,7 @@ import re
 from pathlib import Path
 from  os import getcwd, path, listdir
 
-
 import youtube_dl
-import moviepy
-
-
 from moviepy.editor import *
 
 import redditors
@@ -143,11 +139,18 @@ def add_commentary(clips):
         if first:
             commentary = AudioFileClip(hello_picker())
             first = False
+
         else:
-            commentary = AudioFileClip(comment_picker())
-            commentary = commentary.volumex(2) 
-        conc = concatenate_audioclips([commentary, clip.audio.subclip(commentary.duration,clip.duration)])
-        commentarizedClips.append(clip.set_audio(conc))
+            #commentary = AudioFileClip(comment_picker())
+            #commentary = commentary.volumex(2) 
+            commentary = None
+        if commentary:
+            conc = concatenate_audioclips([commentary, clip.audio.subclip(commentary.duration,clip.duration)])
+            commentarizedClips.append(clip.set_audio(conc))
+        else:
+            commentarizedClips.append(clip)
+        
+        
     return commentarizedClips
 
 def concatenate(clips, directory):
@@ -172,30 +175,3 @@ def get_audio_clip(desiredDuration):
         aud = AudioFileClip(file)
         if aud.duration > desiredDuration:
             return aud.set_duration(desiredDuration)
-
-
-#link = "https://www.youtube.com/watch?v=IGQBtbKSVhY"
-#ydl_opts = {
-#    'format': 'bestvideo+bestaudio/best',
-#    'outtmpl': 'test.mp4',
-#}
-#with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-#    ydl.download([link])
-
-
-
-
-
-
-#test = VideoFileClip("test.mp4")
-#txt =  TextClip(txt="dancing birdie dances all the time this is really rlong text", fontsize=140, color='white')
-#txt = txt.set_start(2).set_end(4).set_position('bottom')
-#video = CompositeVideoClip([test,txt])
-#video.write_videofile("test_withtext.mp4")
-
-if __name__ == "__main__":
-    vidFile = "test.mp4"
-    comments = ['comment'+str(i) for i in range(1,10)]
-    comments[0] = "long comment made of 9 words should be 3secs but where will it even be cut I wonder very much 0123456789"
-
-    add_subtitles(vidFile, "super long title of the video lets see if it will be scaled lets see", ['-aa2', '-ab2', 'ab3', '>>aaaa4'])

@@ -1,15 +1,21 @@
 import requests
 import praw
+import json
 from praw.reddit import Reddit
-#import ffmpeg
 import youtube_dl
 from datetime import datetime
 
-def get_reddit_instance():
-    return praw.Reddit(client_id='Ow1rL-O9MdiCRkAa3N7gVw', client_secret='6NG00EHU054mOESlGBmgq7MuseHTLg', user_agent='koklayan')
 
-def get_hot_submissions(redditInstance, subredditName='NextFuckingLevel', limit=2000):
-    return redditInstance.subreddit(subredditName).hot(limit=limit)
+
+def get_reddit_instance():
+    credentials = json.load(open("credentials.json"))
+    return praw.Reddit(client_id=credentials['client_id'], client_secret=credentials['client_secret'], user_agent=credentials['user_agent'])
+
+def get_submissions(redditInstance, subredditName='NextFuckingLevel', searchType='hot', limit=2000):
+    if searchType == 'hot':
+        return redditInstance.subreddit(subredditName).hot(limit=limit)
+    if searchType == 'top':
+        return redditInstance.subreddit(subredditName).top('week', limit=limit)
 
 def filter_submissions(submissions, min_length=10, max_length=180, total_length=120, min_upratio=0.95, min_ups=1000):
     MAX_AUDIO_LENGTH = 30
@@ -33,6 +39,7 @@ def filter_submissions(submissions, min_length=10, max_length=180, total_length=
         
         subsList.append(s)
         runningTotalTime += duration
+    print(len(subsList))
     return subsList
 
 def comment_extractor(redditInstance, id, ratio=0.004, max_length=300):
