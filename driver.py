@@ -3,21 +3,13 @@ import sys
 from moviepy.video.compositing.concatenate import concatenate_videoclips
 import redditors
 import movie
+import praw
 
 
 
-#Connect to reddit session
-reddit = redditors.get_reddit_instance()
 
-#Get submissions
-if len(sys.argv) == 2:
-    sub_name = sys.argv[1]
-    searchType = sys.argv[2]
-else:
-    sub_name = "nextfuckinglevel"
-    searchType = 'top'
 
-def create_video(subName, searchType, min_ups=1000):
+def create_video(reddit, sub_name, searchType, min_ups=1000):
     submissions = redditors.get_submissions(reddit, sub_name, searchType=searchType )
 
     #filter submissions
@@ -35,7 +27,14 @@ def create_video(subName, searchType, min_ups=1000):
     movie.concatenate(clipsWithCommentary, sub_name)
 
 if __name__ == "__main__":
-    subName = "nonononoyes"
-    searchType = 'hot'
-    minUps = 1000
-    create_video(subName, searchType, min_ups=minUps)
+#    if len(sys.argv) == 2:
+#        sub_name = sys.argv[1]
+#        searchType = sys.argv[2]
+#    else:
+#        sub_name = "all"
+#        searchType = 'top'
+    reddit = redditors.get_reddit_instance()
+    for subName in [ 'all', 'unexpected', 'nextfuckinglevel', 'beamazed']:#'nonononoyes', 'natureisfuckinglit', 'damnthatsinteresting',
+        searchType = 'hot'
+        minUps = 1000
+        create_video(reddit, subName, searchType, min_ups=minUps)

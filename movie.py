@@ -132,10 +132,12 @@ def audify(clips, overwriteAll=True):
             clipsWithAudio.append(clip)
     return clipsWithAudio
 
-def add_commentary(clips):
+def add_commentary(clips, min_duration=10):
     commentarizedClips = []
     first = True
     for clip in clips:
+        if clip.duration < min_duration:
+            continue
         if first:
             commentary = AudioFileClip(hello_picker())
             first = False

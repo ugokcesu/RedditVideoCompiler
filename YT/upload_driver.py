@@ -11,14 +11,14 @@ def create_arguments(file, title, description, keywords):
     return options
 
 def upload_video(options):
-    os.system("python upload_video.py " + options)
+    os.system("python YT/upload_video.py " + options)
     #subprocess.run(["python.exe YT/upload_video.py ", options])
 
 def auto_arguments(subName):
-    file = path.join(r"C:\VSCode", subName, "final.mp4")
-    title = "Reddit's best r/" + subName + " videos compilation with best comments"
-    description = "A compilation of Reddit's best r/BeAmazed Videos with comments!\n \
-        #Reddit #compilation #" + subName
+    file = path.join(r"C:\VSCode\REDDITCOMPILER", subName, "final.mp4")
+    title = "Reddit's best r/" + subName + " videos compilation with funniest comments"
+    description = "A compilation of Reddit's best r/subName videos with the best comments!\n \
+        #Reddit #videos" 
     keywords = subName + ", reddit, videos, memes"
     return create_arguments( file, title, description, keywords)
 
