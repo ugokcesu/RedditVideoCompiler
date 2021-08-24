@@ -8,8 +8,8 @@
 /.venv
 /.vscode
 credentials.json
-client_secrets.json
-YT/client_secrets.json
+client_secrets*.json
+./YT/client_secrets.json
 *.ipynb
 .venv
 
