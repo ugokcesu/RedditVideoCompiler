@@ -1,6 +1,6 @@
 # RedditVideoCompiler
 
-Python script that creates a compilation of reddit videos from the desired subreddit. Here is an exmaple I uploaded to youtube https://youtu.be/oC31847n9j0
+Python script that creates a compilation of reddit videos from the desired subreddit. Here is an example I uploaded to youtube https://youtu.be/oC31847n9j0
 
 
 # Guide
